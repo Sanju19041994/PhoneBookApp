@@ -1,5 +1,8 @@
 package com.bit.PhoneBookApp.entity;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Contact {
 
 	private int S_No;
