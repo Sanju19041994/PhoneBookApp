@@ -15,19 +15,19 @@ import com.bit.PhoneBookApp.service.ContactServiceI;
 @RestController
 public class ContactController {
 
-//	@Autowired
-//	private ContactServiceI contactServiceI;
-//	
-//	@PostMapping(name = "saveContact")
-//	public ResponseEntity<String> saveContact(@RequestBody Contact contact){
-//		
-//		boolean saveContact = contactServiceI.saveContact(contact);
-//		if(saveContact) {
-//			String msg="Contact Saved Successfuly";
-//			return new ResponseEntity<String>(msg, HttpStatus.CREATED);
-//		}else {
-//			return new ResponseEntity<String>("Contact Not Saved", HttpStatus.CREATED);
-//		}
-//		}
+	@Autowired
+	private ContactServiceI contactServiceI;
+	
+	@PostMapping(value = "/saveContact")
+	public ResponseEntity<String> saveContact(@RequestBody Contact contact){
+		
+		boolean saveContact = contactServiceI.saveContact(contact);
+		if(saveContact) {
+			String msg="Contact Saved Successfuly";
+			return new ResponseEntity<String>(msg, HttpStatus.CREATED);
+		}else {
+			return new ResponseEntity<String>("Contact Not Saved", HttpStatus.CREATED);
+		}
+		}
 	}
 
