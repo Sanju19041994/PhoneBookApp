@@ -1,5 +1,7 @@
 package com.bit.PhoneBookApp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,13 @@ public class ContactServiceImpl implements ContactServiceI{
 			return true;
 		}
 		return false;
+	}
+
+
+	@Override
+	public List<Contact> getAllContact() {
+		List<Contact> list = contactRepository.findAll();
+		return list;
 	}
 
 }
