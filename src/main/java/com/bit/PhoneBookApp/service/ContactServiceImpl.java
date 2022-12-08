@@ -40,4 +40,29 @@ public class ContactServiceImpl implements ContactServiceI{
 		return contact;
 	}
 
+
+	@Override
+	public Contact updateContact(Contact contact, Integer contactId) {
+		Contact cont = contactRepository.findById(contactId).orElseThrow(()-> new ResourceNotFoundException("Contact", "Contact Id", contactId));
+		
+		cont.setContactName(contact.getContactName());
+		cont.setContactNumber(contact.getContactNumber());
+		cont.setContactEmail(contact.getContactEmail());
+		
+		Contact updatedContact = contactRepository.save(cont);
+		return updatedContact;
+	}
+
+
+	@Override
+	public boolean deleteContactById(Integer contactId) {
+		Contact cont = contactRepository.findById(contactId).orElseThrow(()-> new ResourceNotFoundException("Contact", "Contact Id", contactId));
+
+		if(cont!=null) {
+			contactRepository.delete(cont);
+			return true;
+		}
+		return false;
+	}
+
 }
