@@ -1,6 +1,8 @@
 package com.bit.PhoneBookApp.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +32,10 @@ public class ContactServiceImpl implements ContactServiceI{
 	@Override
 	public List<Contact> getAllContact() {
 		List<Contact> list = contactRepository.findAll();
-		return list;
+		Stream<Contact> stream = list.stream();
+		Stream<Contact> filter = stream.filter((contact)-> contact.getActiveSwitch()=='Y');
+		List<Contact> list2 = filter.collect(Collectors.toList());
+		return list2;
 	}
 
 
@@ -63,6 +68,20 @@ public class ContactServiceImpl implements ContactServiceI{
 			return true;
 		}
 		return false;
+	}
+
+
+	@Override
+	public boolean deleteContactSoft(Integer contactId) {
+
+		Contact contact = contactRepository.findById(contactId).orElseThrow(()-> new ResourceNotFoundException("Contact", "Contact Id", contactId));
+		if(contact != null) {
+			contact.setActiveSwitch('N');
+			contactRepository.save(contact);
+			return true;
+		}else {
+		return false;
+		}
 	}
 
 }

@@ -98,4 +98,14 @@ public class ContactController {
 			return new ResponseEntity<String>(msg1, HttpStatus.OK);
 		}
 	}
+	
+	@DeleteMapping(value = "/contactDltSoft/{contactId}")
+	public ApiResponse deleteContactSoft(@PathVariable Integer contactId) {
+		boolean contactSoft = contactServiceI.deleteContactSoft(contactId);
+		if(contactSoft) {
+			return new ApiResponse("Contact deleted succsessfully",true);
+		}else {
+			return new ApiResponse("Contact not deleted",false);
+		}
+	}
 }
